@@ -1,0 +1,170 @@
+<script>
+export default {
+  name: 'VfModal',
+  props: {
+    // modal类型
+    type: {
+      type: String,
+      default: 'dialog' // drawer
+    },
+    // 是否显示
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    // 标题
+    title: {
+      type: String
+    }
+  },
+  methods: {
+    handleClose() {
+      this.$emit('update:visible', false)
+    }
+  }
+}
+</script>
+
+<template>
+  <transition name="wrap-fade">
+    <div class="vf-modal__wrapper" v-show="visible">
+      <transition :name="`fade-${type}`">
+        <div class="vf-modal" :class="`vf-modal--${type}`" v-show="visible">
+          <div class="vf-modal__header">
+            <slot name="header">
+              <span class="vf-modal__title">{{ title }}</span>
+              <button type="button" class="vf-modal__headerbtn">
+                <i class="fa fa-close" @click="handleClose"></i>
+              </button>
+            </slot>
+          </div>
+          <div class="vf-modal__body">
+            <slot></slot>
+          </div>
+          <div class="vf-modal__footer">
+            <slot name="footer"></slot>
+          </div>
+        </div>
+      </transition>
+    </div>
+  </transition>
+</template>
+
+<style lang="scss">
+.vf-modal__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20000;
+  background-color: rgba(#000, 0.3);
+
+  .vf-modal {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+    background-color: #fff;
+
+    &.vf-modal--dialog {
+      width: 700px;
+    }
+
+    &.vf-modal--drawer {
+      position: absolute;
+      right: 0;
+      width: 460px;
+      height: 100%;
+    }
+
+    .vf-modal__header {
+      display: flex;
+      margin-bottom: 16px;
+
+      .vf-modal__title {
+        flex-grow: 1;
+        font-size: 18px;
+        font-weight: 700;
+        user-select: none;
+      }
+
+      .vf-modal__headerbtn {
+        padding: 0;
+        border: none;
+        font-size: 20px;
+        background: transparent;
+        cursor: pointer;
+      }
+    }
+
+    .vf-modal__body {
+      overflow-y: scroll;
+    }
+
+    .vf-modal__footer {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.wrap-fade-enter-active {
+  animation: wrap-fade 0.5s;
+}
+
+.wrap-fade-leave-active {
+  animation: wrap-fade 0.5s reverse;
+}
+
+@keyframes wrap-fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-dialog-enter-active {
+  animation: fade-dialog 0.3s;
+}
+
+.fade-dialog-leave-active {
+  animation: fade-dialog 0.3s reverse;
+}
+
+@keyframes fade-dialog {
+  0% {
+    transform: translateY(-40px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.fade-drawer-enter-active {
+  animation: fade-drawer 0.3s;
+}
+
+.fade-drawer-leave-active {
+  animation: fade-drawer 0.3s reverse;
+}
+
+@keyframes fade-drawer {
+  0% {
+    transform: translateX(40px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+</style>
