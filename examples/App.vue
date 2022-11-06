@@ -5,5 +5,8 @@ export default {
 </script>
 
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <demo />
+    <vf-button>ssss</vf-button>
+  </div>
 </template>

@@ -1,0 +1,49 @@
+.vf-input {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+
+  .vf-input__inner {
+    display: inline-block;
+    padding: 0 15px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #dcdfe6;
+    box-sizing: border-box;
+    font-size: inherit;
+    line-height: 40px;
+    background-color: #fff;
+    background-image: none;
+    color: #606266;
+    border-radius: 4px;
+    outline: none;
+
+    &:hover {
+      border-color: #c0c4cc;
+    }
+
+    &:focus {
+      border-color: #409eff;
+    }
+  }
+
+  &.is-disabled {
+    .vf-input__inner {
+      border-color: #e4e7ed;
+      background-color: #f5f7fa;
+      color: #c0c4cc;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// .vf-input__suffix {
+//     position: absolute;
+//     height: 100%;
+//     right: 5px;
+//     top: 0;
+//     text-align: center;
+//     color: #c0c4cc;
+//     transition: all .3s;
+//     pointer-events: none;
+// }
